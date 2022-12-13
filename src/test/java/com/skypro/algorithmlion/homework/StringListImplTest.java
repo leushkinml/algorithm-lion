@@ -128,4 +128,25 @@ class StringListImplTest {
         String[] expectedCopy = expected.toArray();
         Assertions.assertArrayEquals(array, expectedCopy);
     }
+
+    @Test
+    public void shouldThrowWhenIndexIsWrong() {
+        Assertions.assertThrows(WrongIndexException.class, () -> expected.set(11, "test"));
+    }
+
+    @Test
+    public void shouldThrowWhenItemIsNull() {
+        Assertions.assertThrows(NullException.class, () -> expected.addByItem(null));
+    }
+
+    @Test
+    public void shouldThrowWhenLengthIsFull() {
+        expected.addByItem("test 5");
+        expected.addByItem("test 6");
+        expected.addByItem("test 7");
+        expected.addByItem("test 8");
+        expected.addByItem("test 9");
+        expected.addByItem("test 10");
+        Assertions.assertThrows(SetIsFullException.class, () -> expected.addByItem("test"));
+    }
 }
